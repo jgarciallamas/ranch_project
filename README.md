@@ -1,68 +1,136 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# jsforwordpress_bootcamp
+JavaScript for Wordpress Bootacamp project Jan-March 2019
 
-## Available Scripts
+# Overview
+Accesing to the Ranch Systems online database through its JSON web service interface. 
 
-In the project directory, you can run:
+The RS web services implementation is RESTful, it uses simple HTTP requests like GET and POST, I’m going to focus on GET requests though so that I can fetch and show the required information.
 
-### `npm start`
+## Fetch information using GET requests
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Get all properties that a particular user is authorized to access:
+```
+https://app.ranchsystems.com/rsapp15/jsp?uname=jdoe&pword=qwerty&reqtype=props
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+2. Will return something like:
 
-### `npm test`
+```
+{  
+   "props"    : [{"title":"Test Ranch 1","lasttime":1342565519000,"rsuname":"TRANCH1"},
+                 {"title":"Test Ranch 2","lasttime":1342565519000,"rsuname":"TRANCH2"}],
+   "lastprop" : "JCTEST",
+   "auth"     : true
+}
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Mandatory Parameters
 
-### `npm run build`
+uname --> User name
+pword --> Password
+reqtype --> Request type. This parameter specifies the request and further parameters may be required as per documentation below.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Request type “props”
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Retrieves properties to which user has access.
+**No further parameters required.**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Returns a JSON object with the following members:
 
-### `npm run eject`
+```
+{  
+   "props"    : [{"title":"Test Ranch 1","lasttime":1342565519000,"rsuname":"TRANCH1"},
+                 {"title":"Test Ranch 2","lasttime":1342565519000,"rsuname":"TRANCH2"}],
+   "lastprop" : "JCTEST",
+   "auth"     : true
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Request type “propstat”
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Retrieves status information about a particular property.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Requires the following additional URL parameters:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**prop --> ID of property**
 
-## Learn More
+Returns a JSON object with the following members:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+{
+result: "OK",
+healthindex: 99,
+auth: true,
+datatime: "2019-03-21 23:01:04",
+name: "Property Name",
+servicelevel: 30,
+location: ""
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Request type “rmsmap”
 
-### Code Splitting
+Retrieves a complete map (actually a tree) of all units and sensors in a property.
+Requires the following additional URL parameters:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+**prop --> ID of property for which to generate map of sensors.**
 
-### Analyzing the Bundle Size
+Returns a JSON object with the following members:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```
+{
+result: "OK",
+lasttime: 1553206566000,
+auth: true,
+rsuname: "ESABADIA",
+units: [],
+title: "Property Name"
+}
+```
 
-### Making a Progressive Web App
+Each unit object has the following members:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```
+{
+result: "OK",
+lasttime: 1553206566000,
+auth: true,
+rsuname: "ESABADIA",
+units: [
+{
+  loc: "",
+  rsuid: "20213",
+  sensors: [
+                {
+                  last: {
+                          msrmUnit: "°C",
+                          time: "2019-03-21T23:00:00+01:00",
+                          value: 4.381222248077393
+                        },
+                  actvalue: -100000000,
+                  lt: 1553205600000,
+                  sprt: 0,
+                  lv: "4.4 °C",
+                  isVisible: true,
+                  rst: 21,
+                  rsuid: "20213",
+                  prt: 0,
+                  depth: 0,
+                  dsc: "Temperature",
+                  icn: "temp.gif",
+                  id: 176489
+```
 
-### Advanced Configuration
+## Approach -- Pseudocode
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+My first approach would be using React, create-react-app behind the scene
 
-### Deployment
+1.	Request information of all the properties that a particular user is authorized to access, we would use the request type “props”.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+2.	Show the name of the properties using a link for each name. This information would be displayed so that the user can click on any of the properties shown there.
 
-### `npm run build` fails to minify
+3.	The client can click on a particular property and that should trigger another request to that particular property, we would use the request type “propstat”.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+4.	The information we would fetch from the previous point would be displayed on the page where we would add a “More Info” button.
+
+5.	A click on the “More Info” button would trigger another request, “rmsmap” request, where more information about that particular property would be displayed.
