@@ -1,6 +1,8 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Properties from './components/Properties';
+import Detailed from './components/Detailed';
 import { urlRequest, user } from './helper';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,20 +11,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends React.Component {
 
   state = {
-    properties: []
+    properties: [],
+    propstat: {},
+    rmsmap: []
   };
 
   handleInfo = (event) => {
-    event.preventDefault();
-    console.log(event.target.childNodes[1].nodeValue);
-    const property = event.target.childNodes[1].nodeValue;
+    // event.preventDefault();
+    // console.log(event.target.childNodes[0].nodeValue);
+    console.log(event.target.innerHTML);
+    // const property = event.target.childNodes[0].nodeValue;
+    const property = event.target.innerHTML;
     fetch(`${urlRequest}propstat&prop=${property}`)
       .then(res => res.json())
       .then(propstat => {
         console.log('propstat --> ', propstat);
+        this.setState({ propstat:propstat });
         fetch(`${urlRequest}rmsmap&prop=${property}`)
         .then(res => res.json())
-        .then(fullInfo => console.log('rmsmap --> ', fullInfo))
+        .then(rmsmap => {
+          console.log('rmsmap --> ', rmsmap);
+          this.setState({ rmsmap:rmsmap.units })
+        })
         .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
@@ -30,10 +40,15 @@ class App extends React.Component {
   
   render() {
     return (
-      <div className="App">
-        <Header />
-        <Properties properties={this.state.properties} handleInfo={this.handleInfo} user={user}/>
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <Switch >
+            <Route exact path="/" render={ () => <Properties properties={this.state.properties} handleInfo={this.handleInfo} user={user} />} />
+            <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} propstat={this.state.propstat} rmsmap={this.state.rmsmap}/>} />
+          </ Switch >
+        </div>
+      </ Router>
     );
   }
 
