@@ -37,12 +37,20 @@ class App extends React.Component {
       })
       .catch(err => console.log(err));
   }
+
+  clearState = () => {
+    this.setState({ 
+      // properties: [],
+      propstat: {},
+      rmsmap: []
+    });
+  }
   
   render() {
     return (
       <Router>
         <div className="App">
-          <Header />
+          <Header clearState={this.clearState}/>
           <Switch >
             <Route exact path="/" render={ () => <Properties properties={this.state.properties} handleInfo={this.handleInfo} user={user} />} />
             <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} propstat={this.state.propstat} rmsmap={this.state.rmsmap}/>} />
