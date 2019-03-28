@@ -12,7 +12,6 @@ class App extends React.Component {
 
   state = {
     properties: [],
-    
   };
 
   
@@ -26,13 +25,15 @@ class App extends React.Component {
   }
   
   render() {
+    console.log('propstat', this.state.properties);
     return (
       <Router>
         <div className="App">
-          <Header clearState={this.clearState}/>
+          {/* <Header clearState={this.clearState}/> */}
+          <Header />
           <Switch >
             <Route exact path="/" render={ () => <Properties properties={this.state.properties} handleInfo={this.handleInfo} user={user} />} />
-            <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} propstat={this.state.propstat} rmsmap={this.state.rmsmap}/>} />
+            <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} />} />
           </ Switch >
         </div>
       </ Router>

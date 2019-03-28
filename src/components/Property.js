@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Property = (props) => {
-  const { property, handleInfo } = props;
+  const { property } = props;
   
   // const trigger = () => console.log('clicked');
   const date = new Date(property.lasttime);

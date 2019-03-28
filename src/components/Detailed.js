@@ -1,5 +1,5 @@
 import React from 'react';
-import { urlRequest, user } from '../helper';
+import { urlRequest } from '../helper';
 
 class Detailed extends React.Component {
 
