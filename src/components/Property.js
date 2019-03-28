@@ -7,7 +7,7 @@ const Property = (props) => {
   // const trigger = () => console.log('clicked');
   const date = new Date(property.lasttime);
   return(
-    <div>
+    <div className="mb-3 bg-light border rounded border-success">
       <h4>{ property.title }</h4>
       <p>Last access: { date.toLocaleString() }</p>
       {/* <button onClick={handleInfo}>{property.rsuname} Info</button> */}

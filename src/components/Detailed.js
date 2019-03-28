@@ -7,7 +7,7 @@ const Detailed = (props) => {
   return (
     <div>
       <p>{rsuname}</p>
-      <div>{rmsmap.length < 1 && <p>Loading Information</p>}</div>
+      <div>{rmsmap.length < 1 && <p>Loading Information...</p>}</div>
       {rmsmap.length > 0 && <div>
         <p>HealthIndex Property {propstat.healthindex}</p>
         <p>Last Available Data {propstat.datatime}</p></div> }
