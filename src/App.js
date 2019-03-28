@@ -12,31 +12,10 @@ class App extends React.Component {
 
   state = {
     properties: [],
-    propstat: {},
-    rmsmap: []
+    
   };
 
-  handleInfo = (event) => {
-    // event.preventDefault();
-    // console.log(event.target.childNodes[0].nodeValue);
-    console.log(event.target.innerHTML);
-    // const property = event.target.childNodes[0].nodeValue;
-    const property = event.target.innerHTML;
-    fetch(`${urlRequest}propstat&prop=${property}`)
-      .then(res => res.json())
-      .then(propstat => {
-        console.log('propstat --> ', propstat);
-        this.setState({ propstat:propstat });
-        fetch(`${urlRequest}rmsmap&prop=${property}`)
-        .then(res => res.json())
-        .then(rmsmap => {
-          console.log('rmsmap --> ', rmsmap);
-          this.setState({ rmsmap:rmsmap.units })
-        })
-        .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
-  }
+  
 
   clearState = () => {
     this.setState({ 

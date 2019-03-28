@@ -11,7 +11,7 @@ const Property = (props) => {
       <h4>{ property.title }</h4>
       <p>Last access: { date.toLocaleString() }</p>
       {/* <button onClick={handleInfo}>{property.rsuname} Info</button> */}
-      <Link to={`/property/${property.rsuname}`} onClick={handleInfo}>{property.rsuname}</Link>
+      <Link to={`/property/${property.rsuname}`} >{property.rsuname}</Link>
     </div>
   )
 }
