@@ -15,14 +15,6 @@ class App extends React.Component {
   };
 
   
-
-  clearState = () => {
-    this.setState({ 
-      // properties: [],
-      propstat: {},
-      rmsmap: []
-    });
-  }
   
   render() {
     console.log('propstat', this.state.properties);
@@ -32,7 +24,7 @@ class App extends React.Component {
           {/* <Header clearState={this.clearState}/> */}
           <Header />
           <Switch >
-            <Route exact path="/" render={ () => <Properties properties={this.state.properties} handleInfo={this.handleInfo} user={user} />} />
+            <Route exact path="/" render={ () => <Properties properties={this.state.properties} user={user} />} />
             <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} />} />
           </ Switch >
         </div>

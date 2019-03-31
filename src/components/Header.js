@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => <Link to="/"><h1>Ranch Properties App</h1></Link>
-{/* <Link to="/" onClick={clearState}><h1>Ranch Properties App</h1></Link> */}
+
 
 
 
