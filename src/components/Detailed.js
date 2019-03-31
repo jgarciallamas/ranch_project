@@ -30,6 +30,7 @@ class Detailed extends React.Component {
   render() {
   const  { rsuname } = this.props;
   const  { propstat, rmsmap } = this.state;
+  
     console.log('Detailed propstat --> ', propstat);
   
   
@@ -41,13 +42,36 @@ class Detailed extends React.Component {
         ):(
           <div>
             <p>HealthIndex Property {propstat.healthindex}</p>
-            <p>Last Available Data {propstat.datatime}</p>
+            <p>Last Valid Data {propstat.datatime}</p>
       
            {rmsmap.map(unit => (
-            <div key={unit.rsuid}>
-              
-              <p>RS Type Unit {unit.type}</p>
+             
+            <div className="mt-5 bg-light border" key={unit.rsuid}>
+              {/* <p>{console.log('sensors length', unit.sensors.length)}</p> */}
+              <p>{unit.loc}</p>
+              <p>RS Type Unit {unit.type} #{unit.rsuid}</p>
               <p>RS Serial Number {unit.rsuid}</p>
+              {
+                unit.sensors.map((sensor) => {
+                  if( 10 === sensor.prt && 0 === sensor.sprt ) {
+                    return (
+                    <div key={sensor.id}>
+                      <p>{sensor.last.time}</p>
+                      <p>{sensor.dsc} {sensor.lv}</p>
+                    </div>
+                    );
+                  } 
+                  if( 25 === sensor.rst || 400 === sensor.rst ) {
+                    return (
+                    <div key={sensor.id}>
+                      <p>{sensor.last.time}</p>
+                      <p>{sensor.dsc} {sensor.lv}</p>
+                    </div>
+                    );
+                  } 
+                })
+              }
+              
             </div>
           ))}
         </div>
