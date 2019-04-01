@@ -20,13 +20,15 @@ class App extends React.Component {
     console.log('propstat', this.state.properties);
     return (
       <Router>
-        <div className="container">
+        <div className="App">
           {/* <Header clearState={this.clearState}/> */}
           <Header />
-          <Switch >
-            <Route exact path="/" render={ () => <Properties properties={this.state.properties} user={user} />} />
-            <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} />} />
-          </ Switch >
+          <div className="container">
+            <Switch >
+              <Route exact path="/" render={ () => <Properties properties={this.state.properties} user={user} />} />
+              <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} />} />
+            </ Switch >
+          </div>
         </div>
       </ Router>
     );
