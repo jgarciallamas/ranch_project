@@ -20,7 +20,7 @@ class App extends React.Component {
     console.log('propstat', this.state.properties);
     return (
       <Router>
-        <div className="App">
+        <div className="container">
           {/* <Header clearState={this.clearState}/> */}
           <Header />
           <Switch >

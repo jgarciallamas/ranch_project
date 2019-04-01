@@ -1,4 +1,5 @@
 import React from 'react';
+import Sensors from './Sensors';
 import { urlRequest } from '../helper';
 
 class Detailed extends React.Component {
@@ -49,24 +50,26 @@ class Detailed extends React.Component {
             <div className="mt-5 bg-light border" key={unit.rsuid}>
               {/* <p>{console.log('sensors length', unit.sensors.length)}</p> */}
               <p>{unit.loc}</p>
-              <p>RS Type Unit {unit.type} #{unit.rsuid}</p>
+              <p className="mb-0">RS Type Unit {unit.type} #{unit.rsuid}</p>
               <p>RS Serial Number {unit.rsuid}</p>
               {
                 unit.sensors.map((sensor) => {
                   if( 10 === sensor.prt && 0 === sensor.sprt ) {
                     return (
-                    <div key={sensor.id}>
-                      <p>{sensor.last.time}</p>
-                      <p>{sensor.dsc} {sensor.lv}</p>
-                    </div>
+                      <Sensors key={sensor.id} sensor={sensor} />
+                    // <div key={sensor.id}>
+                    //   <p>{sensor.last.time}</p>
+                    //   <p>{sensor.dsc} {sensor.lv}</p>
+                    // </div>
                     );
                   } 
                   if( 25 === sensor.rst || 400 === sensor.rst ) {
                     return (
-                    <div key={sensor.id}>
-                      <p>{sensor.last.time}</p>
-                      <p>{sensor.dsc} {sensor.lv}</p>
-                    </div>
+                    // <div key={sensor.id}>
+                    //   <p>{sensor.last.time}</p>
+                    //   <p>{sensor.dsc} {sensor.lv}</p>
+                    // </div>
+                      <Sensors key={sensor.id} sensor={sensor} />
                     );
                   } 
                 })
