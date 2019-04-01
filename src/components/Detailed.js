@@ -63,7 +63,7 @@ class Detailed extends React.Component {
                     // </div>
                     );
                   } 
-                  if( 25 === sensor.rst || 400 === sensor.rst ) {
+                  if( 25 === sensor.rst || 400 === sensor.rst || 325 === sensor.rst ) {
                     return (
                     // <div key={sensor.id}>
                     //   <p>{sensor.last.time}</p>

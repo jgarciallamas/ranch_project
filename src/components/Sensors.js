@@ -6,7 +6,7 @@ const Sensors = props => {
 
   return(
     <div>
-      <p className="mb-0">{sensor.last.time}</p>
+      <p className="mb-0"><strong>{sensor.last.time}</strong></p>
       <p className="d-inline-block">{sensor.dsc} <mark>{sensor.lv}</mark></p>
       <img src={`${icon}${sensor.icn}`} />
     </div>
