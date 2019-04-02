@@ -25,7 +25,7 @@ class App extends React.Component {
           <Header />
           <div className="container">
             <Switch >
-              <Route exact path="/" render={ () => <Properties properties={this.state.properties} user={user} />} />
+              <Route exact path="/" render={ () => <Properties properties={this.state.properties} />} />
               <Route path="/property/:rsuname" render={ props => <Detailed rsuname={props.match.params.rsuname} />} />
             </ Switch >
           </div>

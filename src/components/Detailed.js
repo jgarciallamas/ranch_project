@@ -37,21 +37,25 @@ class Detailed extends React.Component {
   
     return (
       <div>
-        <p>{rsuname}</p>
+        <h2 className="mt-5 text-primary">{rsuname}</h2>
         {this.state.isLoading ? (
           <p>Text Loading...</p>
         ):(
           <div>
-            <p>HealthIndex Property {propstat.healthindex}</p>
-            <p>Last Valid Data {propstat.datatime}</p>
+            <div className="alert alert-info">
+              <p><em>HealthIndex Property</em> <span className="badge badge-primary">{propstat.healthindex}</span></p>
+              <p><em>Last Valid Data</em><strong> {propstat.datatime}</strong></p>
+            </div>
       
            {rmsmap.map(unit => (
              
-            <div className="mt-5 bg-light border" key={unit.rsuid}>
+            // <div className="mt-5 bg-light border" key={unit.rsuid}>
+            <div className="card mb-3" key={unit.rsuid}>
+            <div className="card-body">
               {/* <p>{console.log('sensors length', unit.sensors.length)}</p> */}
-              <p>{unit.loc}</p>
-              <p className="mb-0">RS Type Unit {unit.type} #{unit.rsuid}</p>
-              <p>RS Serial Number {unit.rsuid}</p>
+              <h4 className="card-title">{unit.loc}</h4>
+              <p className="card-text mb-0">RS Type Unit {unit.type} #{unit.rsuid}</p>
+              <p className="card-text">RS Serial Number {unit.rsuid}</p>
               {
                 unit.sensors.map((sensor) => {
                   if( 10 === sensor.prt && 0 === sensor.sprt ) {
@@ -72,9 +76,10 @@ class Detailed extends React.Component {
                       <Sensors key={sensor.id} sensor={sensor} />
                     );
                   } 
+                  return;
                 })
               }
-              
+              </div>
             </div>
           ))}
         </div>
