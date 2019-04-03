@@ -17,11 +17,10 @@ class App extends React.Component {
   
   
   render() {
-    console.log('propstat', this.state.properties);
+    // console.log('propstat', this.state.properties);
     return (
       <Router>
         <div className="App">
-          {/* <Header clearState={this.clearState}/> */}
           <Header />
           <div className="container">
             <Switch >
@@ -40,7 +39,7 @@ class App extends React.Component {
       .then(res => res.json())
       .then(properties => {
         this.setState({ properties: properties.props })
-        console.log('props --> ',properties);
+        // console.log('props --> ',properties);
 
       })
       .catch(err => console.log(err));
